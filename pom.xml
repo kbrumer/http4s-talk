@@ -10,71 +10,478 @@
     <organization>
         <name>default</name>
     </organization>
+
+    <properties>
+        <scala.version>2.11.8</scala.version>
+        <scala.short.version>2.11</scala.short.version>
+        <scala.xml.version>1.0.1</scala.xml.version>
+        <scalaz.version>7.2.2</scalaz.version>
+        <akka.version>2.3.4</akka.version>
+
+        <!--<doobie.version>0.2.3</doobie.version>-->
+        <!--<circe.version>0.4.0</circe.version>-->
+        <!--<http4s.version>0.13.2</http4s.version>-->
+
+        <doobie.version>0.3.0</doobie.version>
+        <circe.version>0.5.1</circe.version>
+        <http4s.version>0.14.10a</http4s.version>
+
+        <postgresql.version>9.3-1101-jdbc41</postgresql.version>
+        <hikaricp.version>2.4.5</hikaricp.version>
+        <slick.version>2.1.0</slick.version>
+        <hazelcast.version>3.4.2</hazelcast.version>
+        <quartz.version>2.2.1</quartz.version>
+        <shiro.version>1.2.2</shiro.version>
+
+        <play2.version>2.3.10</play2.version>
+        <sockjs.version>0.3.1</sockjs.version>
+
+        <titan.version>0.5.4</titan.version>
+        <cassandra.version>2.0.8</cassandra.version>
+        <cassandra.driver.version>2.0.3</cassandra.driver.version>
+        <blueprints.version>2.5.0</blueprints.version>
+        <gremlin.core.version>2.5.0</gremlin.core.version>
+        <gremlin.scala.version>2.5.2</gremlin.scala.version>
+
+        <sesame.version>2.7.10</sesame.version>
+        <metrics.version>3.0.2</metrics.version>
+        <elastic.api.version>1.7.5</elastic.api.version>
+        <dispatch.version>0.11.2</dispatch.version>
+        <guava.version>16.0.1</guava.version>
+        <jackson.version>2.3.2</jackson.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <build.timestamp>${maven.build.timestamp}</build.timestamp>
+        <!-- Note: IntelliJ complains about this, but it is OK -->
+        <build.number>${env.BUILD_NUMBER}</build.number>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <encoding>UTF-8</encoding>
+    </properties>
+
+
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
-            <version>2.11.8</version>
+            <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-reflect</artifactId>
+            <version>${scala.version}</version>
         </dependency>
         <dependency>
             <groupId>org.http4s</groupId>
-            <artifactId>http4s-dsl_2.11</artifactId>
-            <version>0.13.2</version>
+            <artifactId>http4s-dsl_${scala.short.version}</artifactId>
+            <version>${http4s.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.log4s</groupId>
+                    <artifactId>log4s_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.chuusai</groupId>
+                    <artifactId>shapeless_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scalaz.stream</groupId>
+                    <artifactId>scalaz-stream_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scalaz</groupId>
+                    <artifactId>scalaz-core_${scala.short.version}</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.http4s</groupId>
-            <artifactId>http4s-blaze-server_2.11</artifactId>
-            <version>0.13.2</version>
+            <artifactId>http4s-blaze-server_${scala.short.version}</artifactId>
+            <version>${http4s.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.log4s</groupId>
+                    <artifactId>log4s_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scala-lang.modules</groupId>
+                    <artifactId>scala-xml_${scala.short.version}</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.http4s</groupId>
-            <artifactId>http4s-blaze-client_2.11</artifactId>
-            <version>0.13.2</version>
+            <artifactId>http4s-blaze-client_${scala.short.version}</artifactId>
+            <version>${http4s.version}</version>
         </dependency>
         <dependency>
             <groupId>org.http4s</groupId>
-            <artifactId>http4s-circe_2.11</artifactId>
-            <version>0.13.2</version>
+            <artifactId>http4s-circe_${scala.short.version}</artifactId>
+            <version>${http4s.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scalaz.stream</groupId>
+                    <artifactId>scalaz-stream_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.circe</groupId>
+                    <artifactId>circe-jawn_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.spire-math</groupId>
+                    <artifactId>jawn-parser_${scala.short.version}</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.circe</groupId>
-            <artifactId>circe-core_2.11</artifactId>
-            <version>0.4.0</version>
+            <artifactId>circe-core_${scala.short.version}</artifactId>
+            <version>${circe.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-reflect</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.typelevel</groupId>
+                    <artifactId>macro-compat_${scala.short.version}</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.circe</groupId>
-            <artifactId>circe-generic_2.11</artifactId>
-            <version>0.4.0</version>
+            <artifactId>circe-generic_${scala.short.version}</artifactId>
+            <version>${circe.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.chuusai</groupId>
+                    <artifactId>shapeless_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.typelevel</groupId>
+                    <artifactId>macro-compat_${scala.short.version}</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.circe</groupId>
-            <artifactId>circe-parser_2.11</artifactId>
-            <version>0.4.0</version>
+            <artifactId>circe-parser_${scala.short.version}</artifactId>
+            <version>${circe.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.circe</groupId>
-            <artifactId>circe-java8_2.11</artifactId>
-            <version>0.4.0</version>
+            <artifactId>circe-java8_${scala.short.version}</artifactId>
+            <version>${circe.version}</version>
         </dependency>
         <dependency>
             <groupId>org.tpolecat</groupId>
-            <artifactId>doobie-core_2.11</artifactId>
-            <version>0.2.3</version>
+            <artifactId>doobie-core_${scala.short.version}</artifactId>
+            <version>${doobie.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.chuusai</groupId>
+                    <artifactId>shapeless_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scalaz.stream</groupId>
+                    <artifactId>scalaz-stream_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scalaz</groupId>
+                    <artifactId>scalaz-core_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scalaz</groupId>
+                    <artifactId>scalaz-effect_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scalaz</groupId>
+                    <artifactId>scalaz-effect_${scala.short.version}</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.tpolecat</groupId>
-            <artifactId>doobie-contrib-postgresql_2.11</artifactId>
-            <version>0.2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.tpolecat</groupId>
-            <artifactId>doobie-contrib-specs2_2.11</artifactId>
-            <version>0.2.3</version>
+            <artifactId>doobie-contrib-postgresql_${scala.short.version}</artifactId>
+            <version>${doobie.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.1.7</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.log4s</groupId>
+            <artifactId>log4s_${scala.short.version}</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.chuusai</groupId>
+            <artifactId>shapeless_${scala.short.version}</artifactId>
+            <version>2.3.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.typelevel</groupId>
+                    <artifactId>macro-compat_${scala.short.version}</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.scalaz.stream</groupId>
+            <artifactId>scalaz-stream_${scala.short.version}</artifactId>
+            <version>0.8.4a</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scalaz</groupId>
+                    <artifactId>scalaz-effect_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scalaz</groupId>
+                    <artifactId>scalaz-core_${scala.short.version}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.scalaz</groupId>
+                    <artifactId>scalaz-effect_${scala.short.version}</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.scalaz</groupId>
+            <artifactId>scalaz-core_${scala.short.version}</artifactId>
+            <version>7.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scalaz</groupId>
+            <artifactId>scalaz-effect_${scala.short.version}</artifactId>
+            <version>7.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.typelevel</groupId>
+            <artifactId>macro-compat_${scala.short.version}</artifactId>
+            <version>1.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang.modules</groupId>
+            <artifactId>scala-parser-combinators_${scala.short.version}</artifactId>
+            <version>1.0.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang.modules</groupId>
+            <artifactId>scala-xml_${scala.short.version}</artifactId>
+            <version>1.0.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <testSourceDirectory>src/test/scala</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals><goal>copy-dependencies</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <configuration>
+                            <args>
+                                <arg>-feature</arg>
+                                <arg>-deprecation</arg>
+                                <arg>-dependencyfile</arg>
+                                <arg>${project.build.directory}/.scala_dependencies</arg>
+                            </args>
+                            <scalaVersion>${scala.version}</scalaVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <recompileMode>incremental</recompileMode>
+                    <jvmArgs>
+                        <jvmArg>-Xss2m</jvmArg>
+                    </jvmArgs>
+                    <recompileMode>incremental</recompileMode>
+                    <useZincServer>true</useZincServer>
+                    <analysisCacheFile>${project.build.directory}/analysis-cache-file</analysisCacheFile>
+                    <testAnalysisCacheFile>${project.build.directory}/test-analysis-cache-file</testAnalysisCacheFile>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.13</version>
+                <configuration>
+                    <useFile>false</useFile>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.3.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.3.1</version>
+                <configuration>
+                    <rules>
+                        <DependencyConvergence/>
+                    </rules>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

@@ -2,13 +2,21 @@ package demo
 
 import java.util.concurrent.Executors
 
+
+// DO NOT - DO NOT - DO NOT LET INTELLIJ OPTIMIZE IMPORTS - it does not know how on this file
 import doobie.imports._
 import io.circe._
 import io.circe.generic.auto._
+import io.circe.java8.time._
+import io.circe.parser._
+import io.circe.syntax._
 import org.http4s._
+import org.http4s.circe._
 import org.http4s.dsl._
 
 import scalaz.concurrent.Task
+import scalaz.stream.Process
+
 
 object DemoService {
   val dbExecutor: java.util.concurrent.ExecutorService = Executors.newFixedThreadPool(64)
@@ -20,7 +28,7 @@ object DemoService {
       Ok(PersonDAO.streamPeople.transact(xa).map(p => p.id + "\n"))
 
     case GET -> Root / "people" =>
-      Ok(PersonDAO.listPeople.transact(xa))
+       Ok(PersonDAO.listPeople.transact(xa))
 
     case GET -> Root / "people" / IntVar(id) =>
       for {
