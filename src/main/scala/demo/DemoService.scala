@@ -5,15 +5,10 @@ import java.util.concurrent.Executors
 import doobie.imports._
 import io.circe._
 import io.circe.generic.auto._
-import io.circe.java8.time._
-import io.circe.parser._
-import io.circe.syntax._
 import org.http4s._
-import org.http4s.circe._
 import org.http4s.dsl._
 
 import scalaz.concurrent.Task
-import scalaz.stream.Process
 
 object DemoService {
   val dbExecutor: java.util.concurrent.ExecutorService = Executors.newFixedThreadPool(64)

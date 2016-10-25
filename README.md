@@ -1,6 +1,9 @@
+This was an indirect fork of this github project:
+https://github.com/fiadliel/http4s-talk
+
+
 # http4s-talk
 Repository for http4s talk (scala meetup)
-
 
 
 CREATE DATABASE demo;
